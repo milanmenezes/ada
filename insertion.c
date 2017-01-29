@@ -7,14 +7,12 @@ void insertion(int a[],int n)
  for(i=1;i<n;i++)
  {
   t=a[i];
-  for(j=i-1;j>=0;j--)
+  for(j=i-1;j>=0 && a[j]>t;j--)
   {
-   if(a[j]>a[i])
-   {
     a[j+1]=a[j];
    }
-  }
- a[j]=t;
+
+ a[j+1]=t;
 }
 }
 
