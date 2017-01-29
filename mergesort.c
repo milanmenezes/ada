@@ -40,7 +40,7 @@ void merge(int a[],int l,int m,int h)
 int main()
 {
  int i,a[100],n;
- time_t start,end;
+ clock_t start,end;
  printf("Enter the number of elements\n");
  scanf("%d",&n);
  printf("Enter the elements\n");
