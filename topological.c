@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 
 void topo(int n,int a[100][100])
 {

@@ -1,10 +1,10 @@
-#include<stdio.h>
-#include<limits.h>
+#include <stdio.h>
+#include <limits.h>
 # define V 5
 int minKey(int key[],int Set[]){
 	int min=INT_MAX,min_index,v;
 	for(v=0;v<V;v++)
-		if(Set[v]==0&&key[v]<min)
+		if(Set[v]==0 && key[v]<min)
 			min=key[v],min_index=v;
 	return min_index;
 }
@@ -23,9 +23,10 @@ void prim(int graph[V][V],int n){
 	for(count=0;count<V-1;count++){
 		int u=minKey(key,Set);
 		Set[u]=1;
-		for(v=0;v<V;v++)
+		for(v=0;v<V;v++){
 			if(graph[u][v]&&Set[v]==0&&graph[u][v]<key[v])
 				parent[v]=u,key[v]=graph[u][v];
+		}
 	}
 	print(parent,n,graph);
 }

@@ -1,50 +1,56 @@
-#include<stdio.h>
-#include<limits.h>
-#include<stdbool.h>
-#define V 9
-int minDist(int dist[],bool sptSet[]){
-        int min=INT_MAX,min_index,v;
-        for(v=0;v<V;v++){
-                if(sptSet[v]==false&& dist[v]<=min){
-                        min=dist[v],min_index=v;
-                }
-        }
-        return min_index;
-}
-int print(int dist[],int n){
-        int i;
-        printf("distance from source is\n");
-        for(i=0;i<n;i++){
-                printf("%d   %d \n",i+1,dist[i]);
-        }
-}
-void dijkstra(int graph[V][V],int src,int n){
-        int dist[V],i,count,u,v;
-	bool sptSet[V];
-        for(i=0;i<V;i++){
-                dist[i]=INT_MAX,sptSet[i]=false;
-        }
-        dist[src]=0;
-        for(count=0;count<V;count++){
-                 u=minDist(dist,sptSet);
-        }
-        sptSet[u]=true;
-        for(v=0;v<V;v++){
-		if(!sptSet[v]&&graph[u][v]&&dist[u]!=INT_MAX&& dist[u]+graph[u][v]<dist[v]){
-			dist[v]=dist[u]+graph[u][v];
-		}
-	}
-	print(dist,n);
-}
-int main(){
-	int n,i,j,graph[V][V];
-	printf("enter the number of vertices");
-	scanf("%d",&n);
-	printf("enter the graph in matrix");
-	for(i=0;i<n;i++){
-		for(j=0;j<n;j++)
-			scanf("%d",&graph[i][j]);
-	}
-	dijkstra(graph,0,n);
-}
+#include <stdio.h>
+#include <stdlib.h>
+#define INF 999
 
+void dij(int a[100][100],int v[100],int d[100],int n, int x)
+{
+    int i,sindex=-1,svalue=INF;
+    v[x]=1;
+    for(i=0;i<n;i++)
+    {
+        if(v[i]==0 && a[x][i])
+        {
+            if((d[x]+a[x][i])<d[i])
+               d[i]=d[x]+a[x][i];
+        }
+    }
+
+    for(i=0;i<n;i++)
+    {
+        if(v[i]==0 && d[i]<svalue)
+        {
+            svalue=d[i];
+            sindex=i;
+        }
+    }
+
+    if(sindex!=-1)
+        dij(a,v,d,n,sindex);
+}
+int main()
+{
+    int a[100][100],i,j,n, v[100],d[100];
+    printf("Enter the number of nodes\n");
+    scanf("%d",&n);
+    printf("Enter the path weigth\n");
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            scanf("%d",&a[i][j]);
+        }
+    }
+
+    for(i=0;i<n;i++)
+    {
+        d[i]=INF;
+        v[i]=0;
+    }
+
+    d[0]=0;
+    dij(a,v,d,n,0);
+
+    printf("The shortest distance is:\n");
+    for(i=0;i<n;i++)
+        printf("%d ",d[i]);
+    printf("\n");
+    return 0;
+}
