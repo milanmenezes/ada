@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <limits.h>
-# define V 5
-int minKey(int key[],int Set[]){
+#define V 5
+int minKey(int key[],int Set[],int n){
 	int min=INT_MAX,min_index,v;
-	for(v=0;v<V;v++)
+	for(v=0;v<n;v++)
 		if(Set[v]==0 && key[v]<min)
 			min=key[v],min_index=v;
 	return min_index;
@@ -16,14 +16,14 @@ int print(int parent[],int n,int graph[V][V]){
 }
 void prim(int graph[V][V],int n){
 	int parent[V],key[V],Set[V],i,count,v;
-	for(i=0;i<V;i++)
+	for(i=0;i<n;i++)
 		key[i]=INT_MAX,Set[i]=0;
 	key[0]=0;
 	parent[0]=-1;
-	for(count=0;count<V-1;count++){
-		int u=minKey(key,Set);
+	for(count=0;count<n;count++){
+		int u=minKey(key,Set,n);
 		Set[u]=1;
-		for(v=0;v<V;v++){
+		for(v=0;v<n;v++){
 			if(graph[u][v]&&Set[v]==0&&graph[u][v]<key[v])
 				parent[v]=u,key[v]=graph[u][v];
 		}
